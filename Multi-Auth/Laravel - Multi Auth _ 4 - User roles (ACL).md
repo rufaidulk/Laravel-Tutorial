@@ -488,4 +488,26 @@ public function __construct()
 - If the **exception** is not added, **Admin** can't access the **test view** only **Editor** can view.
 - Also only the authenticated **admin user** can view the **test view**, bcoz of the **auth middleware** declared above
 - also the **normal user**s can't access the test view, bcoz of **auth:admin middleware**
+---
+- Now if Logged in as user and try to access the admin login i.e **/admin,** we can see the admin login form
+- Now if Logged in as admin and try to access the user login i.e **/login**, we can see the user login form
+- for solving this, go to **LoginController.php** in **Admin** folder and update the middleware as follows
+```php
+public function __construct()
+    {
+        $this->middleware('guest:admin')->except('logout');
+        //for restricting the  admin to access user login after authentication
+        $this->middleware('guest')->except('logout');
+    }
+```
+- Now open the **LoginController.php** in **Auth** folder and update the middleware as follows
+```php
+public function __construct()
+    {
+        $this->middleware('guest')->except('logout');
+        //for restrictiing the users to access the admin login after logged in as user
+        $this->middleware('guest:admin')->except('logout');
+    }
+```
+- Now the problem is solved
 - **Finished!**
