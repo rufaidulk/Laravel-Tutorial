@@ -509,5 +509,6 @@ public function __construct()
         $this->middleware('guest:admin')->except('logout');
     }
 ```
+>     Note : This has been committed in **master** branch
 - Now the problem is solved
 - **Finished!**
